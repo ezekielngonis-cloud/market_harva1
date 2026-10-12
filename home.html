@@ -430,19 +430,19 @@
     </a>
 
     <nav class="nav" aria-label="Main navigation">
-      <a class="active" href="home.html">âŒ‚ Home</a>
-      <a href="#products">â–¦ Products</a>
-      <a href="stores.html" data-future="Stores">â–£ Stores</a>
-      <a href="orders.html" data-future="Orders">ðŸ›’ Orders</a>
+      <a class="active" href="home.html">⌂ Home</a>
+      <a href="#products">▦ Products</a>
+      <a href="stores.html" data-future="Stores">▣ Stores</a>
+      <a href="orders.html" data-future="Orders">🛒 Orders</a>
     </nav>
 
     <label class="header-search" aria-label="Search marketplace">
-      <span>âŒ•</span>
+      <span>⌕</span>
       <input id="headerSearch" type="search" placeholder="Search products..." />
     </label>
 
     <div class="header-actions">
-      <button class="outline-btn" id="themeBtn" type="button" aria-label="Toggle dark mode">â˜¾</button>
+      <button class="outline-btn" id="themeBtn" type="button" aria-label="Toggle dark mode">☾</button>
     </div>
   </header>
 
@@ -458,8 +458,8 @@
         </form>
       </div>
       <div class="hero-art" aria-hidden="true">
-        ðŸ›ï¸
-        <small>SHOP â€¢ DISCOVER â€¢ GROW</small>
+        🛍️
+        <small>SHOP • DISCOVER • GROW</small>
       </div>
     </section>
 
@@ -469,38 +469,38 @@
         <button class="small-link" id="allCategories" type="button">View all</button>
       </div>
       <div class="categories" id="categories">
-        <button class="category selected" data-category="All" type="button"><span class="cat-icon">â–¦</span>All products</button>
-        <button class="category" data-category="Electronics" type="button"><span class="cat-icon">â–£</span>Electronics</button>
-        <button class="category" data-category="Fashion" type="button"><span class="cat-icon">â™§</span>Fashion</button>
-        <button class="category" data-category="Home" type="button"><span class="cat-icon">âŒ‚</span>Home & living</button>
-        <button class="category" data-category="Beauty" type="button"><span class="cat-icon">âœ¿</span>Beauty</button>
-        <button class="category" data-category="Sports" type="button"><span class="cat-icon">âš½</span>Sports</button>
-        <button class="category" data-category="Books" type="button"><span class="cat-icon">â–¤</span>Books</button>
-        <button class="category" data-category="Other" type="button"><span class="cat-icon">â€¢â€¢â€¢</span>More</button>
+        <button class="category selected" data-category="All" type="button"><span class="cat-icon">▦</span>All products</button>
+        <button class="category" data-category="Electronics" type="button"><span class="cat-icon">▣</span>Electronics</button>
+        <button class="category" data-category="Fashion" type="button"><span class="cat-icon">♧</span>Fashion</button>
+        <button class="category" data-category="Home" type="button"><span class="cat-icon">⌂</span>Home & living</button>
+        <button class="category" data-category="Beauty" type="button"><span class="cat-icon">✿</span>Beauty</button>
+        <button class="category" data-category="Sports" type="button"><span class="cat-icon">⚽</span>Sports</button>
+        <button class="category" data-category="Books" type="button"><span class="cat-icon">▤</span>Books</button>
+        <button class="category" data-category="Other" type="button"><span class="cat-icon">•••</span>More</button>
       </div>
     </section>
 
     <section class="section" id="products" aria-labelledby="productsTitle">
       <div class="section-heading">
         <h2 id="productsTitle">Featured products</h2>
-        <button class="small-link" id="resetFilters" type="button">Clear filters â†—</button>
+        <button class="small-link" id="resetFilters" type="button">Clear filters ↺</button>
       </div>
-      <div class="product-grid" id="productGrid"><div class="empty" id="loadingState">Loading products from Market HARVAâ€¦</div></div>
+      <div class="product-grid" id="productGrid"><div class="empty" id="loadingState">Loading products from Market HARVA…</div></div>
       <div class="empty" id="emptyState" hidden>No products match your search. Try another word or clear your filters.</div>
     </section>
 
     <section class="benefits" aria-label="Marketplace benefits">
-      <div class="benefit"><div class="benefit-icon">ðŸ›¡ï¸</div><div><strong>Safer shopping</strong><small>Account and seller checks as features are implemented.</small></div></div>
-      <div class="benefit"><div class="benefit-icon">â–¦</div><div><strong>More choice</strong><small>Discover products across categories.</small></div></div>
-      <div class="benefit"><div class="benefit-icon">ðŸª</div><div><strong>Seller opportunities</strong><small>Build your business with a store on the marketplace.</small></div></div>
-      <div class="benefit"><div class="benefit-icon">ðŸŒ</div><div><strong>Global ambition</strong><small>Designed with international growth in mind.</small></div></div>
+      <div class="benefit"><div class="benefit-icon">🛡️</div><div><strong>Safer shopping</strong><small>Account and seller checks as features are implemented.</small></div></div>
+      <div class="benefit"><div class="benefit-icon">▦</div><div><strong>More choice</strong><small>Discover products across categories.</small></div></div>
+      <div class="benefit"><div class="benefit-icon">🏪</div><div><strong>Seller opportunities</strong><small>Build your business with a store on the marketplace.</small></div></div>
+      <div class="benefit"><div class="benefit-icon">🌍</div><div><strong>Global ambition</strong><small>Designed with international growth in mind.</small></div></div>
     </section>
   </main>
 
   <footer class="footer">
     <div class="footer-inner">
-      <div><strong>Market HARVA</strong> â€” Discover. Connect. Grow.</div>
-      <div>Â© <span id="year"></span> Market HARVA. Discover. Connect. Grow.</div>
+      <div><strong>Market HARVA</strong> — Discover. Connect. Grow.</div>
+      <div>© <span id="year"></span> Market HARVA. Discover. Connect. Grow.</div>
     </div>
   </footer>
 
@@ -560,18 +560,18 @@
 
     function iconForCategory(name) {
       const key = String(name || "").toLowerCase();
-      if (/electronic|phone|computer/.test(key)) return "â–£";
-      if (/fashion|clothing|shoe/.test(key)) return "â™§";
-      if (/home|living|kitchen/.test(key)) return "âŒ‚";
-      if (/beauty|health/.test(key)) return "âœ¿";
-      if (/sport|fitness/.test(key)) return "âš½";
-      if (/book|stationery/.test(key)) return "â–¤";
-      return "â€¢â€¢â€¢";
+      if (/electronic|phone|computer/.test(key)) return "▣";
+      if (/fashion|clothing|shoe/.test(key)) return "♧";
+      if (/home|living|kitchen/.test(key)) return "⌂";
+      if (/beauty|health/.test(key)) return "✿";
+      if (/sport|fitness/.test(key)) return "⚽";
+      if (/book|stationery/.test(key)) return "▤";
+      return "•••";
     }
 
     function renderCategories(categories) {
       const root = $("categories");
-      const items = [{ id: "All", name: "All products", icon: "â–¦" },
+      const items = [{ id: "All", name: "All products", icon: "▦" },
         ...categories.map(c => ({ id: c.id, name: c.name, icon: iconForCategory(c.name) }))];
 
       root.innerHTML = items.map((cat, index) =>
@@ -741,7 +741,7 @@
     });
     $("themeBtn").addEventListener("click", () => {
       document.body.classList.toggle("dark");
-      $("themeBtn").textContent = document.body.classList.contains("dark") ? "â˜€" : "â˜¾";
+      $("themeBtn").textContent = document.body.classList.contains("dark") ? "☀" : "☾";
     });
     document.querySelectorAll("[data-future]").forEach(link => {
       link.addEventListener("click", event => {
