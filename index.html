@@ -1,0 +1,668 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#edf4ff">
+  <title>Market HARVA | Welcome</title>
+  <meta name="description" content="Discover products, trusted stores and opportunities on Market HARVA.">
+
+  <style>
+    :root {
+      --blue: #5f8fd6;
+      --blue-dark: #386db8;
+      --blue-pale: #edf4ff;
+      --silver: #cbd5e1;
+      --text: #25354b;
+      --muted: #718096;
+      --white: #ffffff;
+      --danger: #b42318;
+      --success: #18794e;
+      --shadow: 0 22px 65px rgba(56, 91, 139, .12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 10% 10%, #fff 0, transparent 42%),
+        linear-gradient(135deg, #edf4ff, #e4edfa 55%, #f7faff);
+      display: flex;
+      flex-direction: column;
+    }
+
+    button, input { font: inherit; }
+
+    .topbar {
+      width: 100%;
+      padding: 22px clamp(18px, 5vw, 70px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -.5px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 20px;
+      background: linear-gradient(145deg, #7ca9eb, #477bc5);
+      border: 1px solid #b7cbe8;
+      box-shadow: 0 5px 14px #739bd733;
+    }
+
+    .brand span span { color: var(--blue-dark); }
+
+    .theme-btn {
+      background: rgba(255,255,255,.7);
+      color: var(--blue-dark);
+      border: 1px solid var(--silver);
+      border-radius: 12px;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+
+    .theme-btn:hover {
+      border-color: var(--blue);
+      background: white;
+    }
+
+    main {
+      width: 100%;
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .layout {
+      width: min(100%, 990px);
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      align-items: center;
+      gap: clamp(24px, 5vw, 65px);
+    }
+
+    .intro { padding: 12px 0; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #c8d9f1;
+      border-radius: 30px;
+      padding: 8px 13px;
+      color: var(--blue-dark);
+      background: #ffffffa8;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #5e9b78;
+    }
+
+    h1 {
+      margin: 22px 0 16px;
+      font-size: clamp(38px, 5vw, 57px);
+      line-height: 1.08;
+      letter-spacing: -2px;
+    }
+
+    h1 em {
+      color: var(--blue-dark);
+      font-style: normal;
+    }
+
+    .intro > p {
+      max-width: 440px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .benefits {
+      margin-top: 28px;
+      display: grid;
+      gap: 13px;
+    }
+
+    .benefit {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: #42536b;
+    }
+
+    .check {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      border: 1px solid #c8d9ef;
+      background: #ffffffb8;
+      color: var(--blue-dark);
+      flex-shrink: 0;
+    }
+
+    .auth-card {
+      padding: 32px;
+      background: rgba(255,255,255,.93);
+      border: 1px solid #c9d5e4;
+      border-radius: 25px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-card::before {
+      content: "";
+      position: absolute;
+      height: 4px;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(90deg, #aecbf3, #5f8fd6, #d9e5f5);
+    }
+
+    .card-heading h2 {
+      margin: 4px 0 8px;
+      font-size: 27px;
+      letter-spacing: -.6px;
+    }
+
+    .card-heading p {
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      padding: 5px;
+      margin-bottom: 24px;
+      border: 1px solid #d7e0eb;
+      background: #f0f4fa;
+      border-radius: 13px;
+    }
+
+    .tab {
+      border: 1px solid transparent;
+      background: transparent;
+      color: #6b7a90;
+      border-radius: 9px;
+      padding: 11px 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .tab.active {
+      background: white;
+      border-color: #cbd8e8;
+      color: var(--blue-dark);
+      box-shadow: 0 2px 7px #24364b0b;
+    }
+
+    .field { margin-bottom: 16px; }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #42536b;
+    }
+
+    input {
+      width: 100%;
+      min-height: 47px;
+      padding: 12px 14px;
+      border: 1px solid #d0d9e5;
+      border-radius: 11px;
+      color: var(--text);
+      background: #fbfdff;
+      outline: none;
+      transition: border .2s, box-shadow .2s;
+    }
+
+    input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px #5f8fd61c;
+    }
+
+    input::placeholder { color: #a0aaba; }
+
+    .password-wrap { position: relative; }
+
+    .password-wrap input { padding-right: 68px; }
+
+    .show-password {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      color: var(--blue-dark);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 6px;
+    }
+
+    .forgot-row {
+      text-align: right;
+      margin-top: -5px;
+      margin-bottom: 18px;
+    }
+
+    .text-btn {
+      border: none;
+      padding: 3px;
+      background: transparent;
+      color: var(--blue-dark);
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .text-btn:hover { text-decoration: underline; }
+
+    .primary-btn {
+      width: 100%;
+      min-height: 49px;
+      border-radius: 12px;
+      border: 1px solid #b9cde8;
+      background: linear-gradient(135deg, #edf4ff, #e2edfc);
+      color: #386db8;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .primary-btn:hover {
+      background: #fff;
+      border-color: #6596d9;
+      box-shadow: 0 5px 15px #5f8fd61c;
+    }
+
+    .primary-btn:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .message {
+      display: none;
+      padding: 11px 12px;
+      margin: 0 0 16px;
+      border: 1px solid #d2deec;
+      border-radius: 10px;
+      background: #f5f8fc;
+      color: #42536b;
+      font-size: 13px;
+      line-height: 1.55;
+      overflow-wrap: anywhere;
+    }
+
+    .message.visible { display: block; }
+    .message.error { color: var(--danger); border-color: #f0c7c3; background: #fff7f6; }
+    .message.success { color: var(--success); border-color: #b8e0ca; background: #f4fbf6; }
+
+    .terms {
+      margin: 17px 0 0;
+      text-align: center;
+      color: #8a97a8;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .terms strong { color: #52647b; }
+
+    footer {
+      text-align: center;
+      padding: 22px 15px;
+      color: #7e8da2;
+      font-size: 12px;
+    }
+
+    .dark {
+      --text: #e5edf9;
+      --muted: #a7b6cc;
+      --silver: #394b63;
+      background: linear-gradient(135deg, #172337, #202f46);
+    }
+
+    .dark .auth-card { background: #1c2a3e; border-color: #41516a; }
+    .dark .tabs, .dark input { background: #172337; border-color: #43546b; color: #e5edf9; }
+    .dark .tab.active, .dark .theme-btn, .dark .check { background: #263a55; border-color: #536983; }
+    .dark .benefit, .dark label { color: #d0dced; }
+    .dark .intro > p, .dark .card-heading p, .dark footer { color: #a7b6cc; }
+    .dark .eyebrow { background: #233750; border-color: #435c7b; }
+    .dark .terms strong { color: #c9d8ec; }
+
+    @media (max-width: 780px) {
+      .layout { grid-template-columns: 1fr; max-width: 430px; }
+      .intro { text-align: center; padding-top: 8px; }
+      .intro > p { margin-left: auto; margin-right: auto; }
+      .benefits { display: none; }
+      h1 { font-size: 39px; }
+      .auth-card { padding: 26px 22px; }
+      .topbar { padding: 16px 20px; }
+    }
+
+    @media (max-width: 360px) {
+      .auth-card { padding: 24px 17px; }
+      .brand { font-size: 17px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">H</div>
+      <span>Market <span>HARVA</span></span>
+    </div>
+    <button class="theme-btn" id="themeBtn" type="button">☾ Dark mode</button>
+  </header>
+
+  <main>
+    <div class="layout">
+      <section class="intro">
+        <div class="eyebrow"><i></i> Your marketplace, connected</div>
+        <h1>Discover more.<br><em>Trade smarter.</em></h1>
+        <p>
+          Explore products, discover stores and connect with sellers
+          through a marketplace designed to bring opportunities closer.
+        </p>
+
+        <div class="benefits">
+          <div class="benefit"><span class="check">✓</span> Discover products from different sellers</div>
+          <div class="benefit"><span class="check">✓</span> Create an account and manage your activity</div>
+          <div class="benefit"><span class="check">✓</span> Build your store as the marketplace grows</div>
+        </div>
+      </section>
+
+      <section class="auth-card">
+        <div class="card-heading">
+          <h2 id="formTitle">Welcome back</h2>
+          <p id="formSubtitle">Sign in to continue to Market HARVA.</p>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" id="signinTab" type="button">Sign in</button>
+          <button class="tab" id="signupTab" type="button">Create account</button>
+        </div>
+
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+
+        <form id="authForm">
+          <div class="field" id="nameField" hidden>
+            <label for="fullName">Full name</label>
+            <input id="fullName" type="text" autocomplete="name"
+                   placeholder="Enter your full name" maxlength="100">
+          </div>
+
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" type="email" autocomplete="email"
+                   placeholder="you@example.com" required maxlength="254">
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="password-wrap">
+              <input id="password" type="password" autocomplete="current-password"
+                     placeholder="Enter your password" required minlength="8">
+              <button class="show-password" id="showPassword" type="button">Show</button>
+            </div>
+          </div>
+
+          <div class="field" id="confirmField" hidden>
+            <label for="confirmPassword">Confirm password</label>
+            <input id="confirmPassword" type="password"
+                   autocomplete="new-password" placeholder="Repeat your password"
+                   minlength="8">
+          </div>
+
+          <div class="forgot-row" id="forgotRow">
+            <button class="text-btn" id="forgotBtn" type="button">Forgot password?</button>
+          </div>
+
+          <button class="primary-btn" id="submitBtn" type="submit">Sign in</button>
+        </form>
+
+        <p class="terms">
+          By continuing, you agree to use Market HARVA responsibly.
+          <br><strong>Secure account access</strong> powered by Supabase.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <footer>© <span id="year"></span> Market HARVA. All rights reserved.</footer>
+
+  <!-- Supabase browser library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    /*
+      SETUP REQUIRED:
+      Replace these two placeholders with the values from your NEW
+      Market HARVA Supabase project. Do not use the old project details.
+      A publishable/anon key is intended for browser use when RLS is configured.
+      NEVER put a service_role or secret key here.
+    */
+    const SUPABASE_URL = "PASTE_YOUR_MARKET_HARVA_PROJECT_URL_HERE";
+    const SUPABASE_PUBLISHABLE_KEY = "PASTE_YOUR_MARKET_HARVA_PUBLISHABLE_KEY_HERE";
+
+    const configReady =
+      SUPABASE_URL.startsWith("https://") &&
+      !SUPABASE_URL.includes("PASTE_YOUR") &&
+      !SUPABASE_PUBLISHABLE_KEY.includes("PASTE_YOUR") &&
+      SUPABASE_PUBLISHABLE_KEY.length > 20;
+
+    let supabaseClient = null;
+
+    if (configReady && window.supabase) {
+      supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY,
+        {
+          auth: {
+            persistSession: true,
+            autoRefreshToken: true,
+            detectSessionInUrl: true
+          }
+        }
+      );
+    }
+
+    const $ = (id) => document.getElementById(id);
+    let mode = "signin";
+
+    $("year").textContent = new Date().getFullYear();
+
+    function showMessage(text, type = "") {
+      const box = $("message");
+      box.textContent = text;
+      box.className = "message visible" + (type ? " " + type : "");
+    }
+
+    function clearMessage() {
+      $("message").className = "message";
+      $("message").textContent = "";
+    }
+
+    function setMode(nextMode) {
+      mode = nextMode;
+      clearMessage();
+
+      const signingUp = mode === "signup";
+
+      $("signinTab").classList.toggle("active", !signingUp);
+      $("signupTab").classList.toggle("active", signingUp);
+      $("nameField").hidden = !signingUp;
+      $("confirmField").hidden = !signingUp;
+      $("forgotRow").hidden = signingUp;
+
+      $("fullName").required = signingUp;
+      $("confirmPassword").required = signingUp;
+      $("password").autocomplete = signingUp ? "new-password" : "current-password";
+
+      $("formTitle").textContent = signingUp ? "Create your account" : "Welcome back";
+      $("formSubtitle").textContent = signingUp
+        ? "Join Market HARVA and get started."
+        : "Sign in to continue to Market HARVA.";
+      $("submitBtn").textContent = signingUp ? "Create account" : "Sign in";
+    }
+
+    $("signinTab").addEventListener("click", () => setMode("signin"));
+    $("signupTab").addEventListener("click", () => setMode("signup"));
+
+    $("showPassword").addEventListener("click", () => {
+      const input = $("password");
+      const reveal = input.type === "password";
+      input.type = reveal ? "text" : "password";
+      $("showPassword").textContent = reveal ? "Hide" : "Show";
+    });
+
+    $("themeBtn").addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      const dark = document.body.classList.contains("dark");
+      $("themeBtn").textContent = dark ? "☀ Light mode" : "☾ Dark mode";
+    });
+
+    $("forgotBtn").addEventListener("click", async () => {
+      clearMessage();
+
+      if (!supabaseClient) {
+        showMessage("First connect this page to your Market HARVA Supabase project.", "error");
+        return;
+      }
+
+      const email = $("email").value.trim();
+      if (!email) {
+        showMessage("Enter your email address above, then select Forgot password again.", "error");
+        $("email").focus();
+        return;
+      }
+
+      const redirectTo = new URL("index.html", window.location.href).href;
+      const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+        redirectTo
+      });
+
+      if (error) {
+        showMessage(error.message, "error");
+      } else {
+        showMessage("If an account exists for that email, password-reset instructions will be sent when email delivery is configured.", "success");
+      }
+    });
+
+    $("authForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      clearMessage();
+
+      if (!supabaseClient) {
+        showMessage("Supabase is not connected yet. Save this page first; we'll add your project URL and publishable key next.", "error");
+        return;
+      }
+
+      const email = $("email").value.trim();
+      const password = $("password").value;
+      const submitBtn = $("submitBtn");
+
+      if (mode === "signup" && $("fullName").value.trim().length < 2) {
+        showMessage("Please enter your full name.", "error");
+        return;
+      }
+
+      if (mode === "signup" && password !== $("confirmPassword").value) {
+        showMessage("Your passwords do not match.", "error");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = mode === "signup" ? "Creating account…" : "Signing in…";
+
+      try {
+        if (mode === "signup") {
+          const { data, error } = await supabaseClient.auth.signUp({
+            email,
+            password,
+            options: {
+              data: { full_name: $("fullName").value.trim() }
+            }
+          });
+
+          if (error) throw error;
+
+          if (data.session) {
+            showMessage("Account created successfully. Opening Market HARVA…", "success");
+            window.location.href = "home.html";
+          } else {
+            showMessage("Your registration was submitted. Check your email to confirm your account, then return here to sign in.", "success");
+            setMode("signin");
+          }
+        } else {
+          const { error } = await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+          });
+
+          if (error) throw error;
+
+          showMessage("Sign-in successful. Opening Market HARVA…", "success");
+          window.location.href = "home.html";
+        }
+      } catch (error) {
+        showMessage(error.message || "Something went wrong. Please try again.", "error");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = mode === "signup" ? "Create account" : "Sign in";
+      }
+    });
+
+    async function checkExistingSession() {
+      if (!supabaseClient) return;
+
+      const { data, error } = await supabaseClient.auth.getSession();
+      if (!error && data.session) {
+        // The home page will be created in the next step.
+        // Once it exists, signed-in users can continue there.
+      }
+    }
+
+    checkExistingSession();
+  </script>
+</body>
+</html>
