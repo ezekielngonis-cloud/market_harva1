@@ -576,7 +576,7 @@
         return;
       }
 
-      const redirectTo = new URL("index.html", window.location.href).href;
+      const redirectTo = "https://ezekielngonis-cloud.github.io/market_harva1/";
       const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
         redirectTo
       });
@@ -620,7 +620,9 @@
             email,
             password,
             options: {
-              data: { full_name: $("fullName").value.trim() }
+              data: { full_name: $("fullName").value.trim() },
+              // Send confirmation links back to this GitHub Pages app, not the site root.
+              emailRedirectTo: "https://ezekielngonis-cloud.github.io/market_harva1/"
             }
           });
 
