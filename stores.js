@@ -65,6 +65,7 @@
     if(error){notice("Unable to check your sign-in session: "+error.message,"error");return;}
     if(!session){notice("Please sign in to manage your stores. Redirecting to the sign-in page…");setTimeout(()=>{location.href="index.html";},1200);return;}
     currentUser=session.user;
+    try { const {data:roles}=await client.from("user_roles").select("role").eq("user_id",currentUser.id); if((roles||[]).some(item=>item.role==="admin"||item.role==="support")) $("adminLink")?.removeAttribute("hidden"); } catch(e) { console.warn("Could not load staff navigation.",e); }
     if(!currentUser.email_confirmed_at){
       notice("Please confirm your email address before creating a free store. Open the confirmation email from Market HARVA, then sign in again.","error");
       $("storeForm").querySelectorAll("input,textarea,select,button").forEach(el=>el.disabled=true);
