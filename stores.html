@@ -1,17 +1,54 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#edf4ff"><title>My Stores | Market HARVA</title>
 <style>
-:root{--blue:#5f8fd6;--blue-dark:#386db8;--bg:#edf4ff;--text:#25354b;--muted:#718096;--silver:#cbd5e1;--white:#fff}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:"Trebuchet MS",Arial,sans-serif;color:var(--text);background:linear-gradient(135deg,#edf4ff,#e4edfa 55%,#f7faff)}
-header{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:18px clamp(16px,5vw,60px);border-bottom:1px solid #cbd5e1;background:#ffffffb8}
-.brand{font-weight:900;font-size:20px;color:var(--text);text-decoration:none}.brand span{color:var(--blue-dark)}
-a.btn{display:inline-block;text-decoration:none;background:linear-gradient(135deg,#edf4ff,#e2edfc);color:var(--blue-dark);border:1px solid #b9cde8;border-radius:11px;padding:11px 15px;font-weight:800}
-main{width:min(760px,92%);margin:8vh auto;background:#fff;border:1px solid #c9d5e4;border-radius:22px;padding:clamp(24px,5vw,44px);box-shadow:0 22px 65px #385b8b1f}
-.kicker{color:var(--blue-dark);font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase}h1{font-size:clamp(30px,5vw,44px);margin:12px 0}p{line-height:1.8;color:var(--muted)}.status{margin-top:25px;padding:15px;border:1px solid #d7e0eb;border-radius:12px;background:#f7faff;font-size:14px;line-height:1.7}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
-</style></head><body><header><a class="brand" href="home.html">Market <span>HARVA</span></a><a class="btn" href="home.html">← Marketplace</a></header>
-<main><div class="kicker">Market HARVA</div><h1>My Stores</h1><p>Discover stores and manage your seller presence.</p><div class="status"><strong>Development status</strong><br>Store discovery and seller store management will be connected to Supabase in the next stage.</div></main>
-<footer>© <span id="year"></span> Market HARVA. Discover. Connect. Grow.</footer><script>document.getElementById("year").textContent=new Date().getFullYear();</script>  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="support-widget.js"></script>
+:root{--blue:#5f8fd6;--dark:#386db8;--bg:#edf4ff;--text:#25354b;--muted:#718096;--line:#d4deeb;--white:#fff}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:var(--text);background:linear-gradient(135deg,#edf4ff,#e4edfa 55%,#f7faff)}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px clamp(16px,5vw,60px);border-bottom:1px solid var(--line);background:#ffffffd9;position:sticky;top:0;backdrop-filter:blur(12px);z-index:3}
+.brand{font-weight:900;font-size:20px;color:var(--text);text-decoration:none}.brand span{color:var(--dark)}
+a.btn,button{font:inherit;cursor:pointer;border-radius:11px;padding:11px 15px;font-weight:750;border:1px solid #b9cde8;background:linear-gradient(135deg,#edf4ff,#e2edfc);color:var(--dark);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+button.primary{background:var(--dark);color:white;border-color:var(--dark)}button:disabled{opacity:.55;cursor:not-allowed}
+main{width:min(1050px,92%);margin:38px auto 60px}.eyebrow{color:var(--dark);font-size:12px;font-weight:850;letter-spacing:1.4px;text-transform:uppercase}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:24px}h1{font-size:clamp(30px,5vw,43px);margin:9px 0}p{line-height:1.65;color:var(--muted)}.hero p{max-width:650px;margin:0}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:22px 0}.stat,.panel,.store-card,.plan{background:#ffffffd9;border:1px solid var(--line);border-radius:17px;padding:20px;box-shadow:0 10px 30px #385b8b0a}.stat small{color:var(--muted)}.stat strong{display:block;font-size:24px;margin-top:8px}
+.layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr);gap:18px}.panel h2{margin:0 0 15px;font-size:20px}.stores{display:grid;gap:12px}.store-card{padding:16px;box-shadow:none}.store-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.store-card h3{margin:0 0 5px}.store-card p{margin:0 0 10px;font-size:14px}.pill{display:inline-block;padding:5px 9px;border-radius:999px;background:#edf4ff;border:1px solid #d1deef;color:#45658d;font-size:12px;font-weight:800;text-transform:capitalize}.empty{padding:25px;text-align:center;border:1px dashed #b9c9de;border-radius:14px;color:var(--muted)}
+label{display:block;font-size:13px;font-weight:750;margin:13px 0 6px}input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;font:inherit;background:#fff;color:var(--text)}textarea{min-height:95px;resize:vertical}.hint{font-size:12px;color:var(--muted);margin-top:5px}.form-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.message{margin:14px 0;padding:12px;border-radius:10px;background:#f1f6ff;border:1px solid #d5e2f5;color:#38577f;font-size:14px;line-height:1.55}.message.error{background:#fff4f3;border-color:#f1c7c2;color:#9b3429}.message.success{background:#effbf3;border-color:#bfe5ca;color:#21643b}.plans{display:grid;gap:10px}.plan{padding:15px;box-shadow:none}.plan h3{margin:0 0 4px}.plan p{font-size:13px;margin:0}.plan strong{display:block;margin:9px 0}.muted{color:var(--muted)}footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+@media(max-width:760px){.stats{grid-template-columns:1fr}.layout{grid-template-columns:1fr}main{margin-top:25px}.hero{align-items:flex-start}}
+</style>
+</head>
+<body>
+<header><a class="brand" href="home.html">Market <span>HARVA</span></a><a class="btn" href="home.html">← Marketplace</a></header>
+<main>
+<section class="hero"><div><div class="eyebrow">Seller workspace</div><h1>My Stores</h1><p>Manage your storefronts, keep track of review status, and prepare your product catalog.</p></div><button id="refreshBtn" type="button">↻ Refresh</button></section>
+<div id="notice" class="message" role="status">Connecting securely to Market HARVA…</div>
+<section class="stats">
+<div class="stat"><small>Your stores</small><strong id="storeCount">—</strong></div>
+<div class="stat"><small>Free store allowance</small><strong id="allowance">1 store</strong></div>
+<div class="stat"><small>Active listings used</small><strong id="listingUsage">—</strong></div>
+</section>
+<div class="layout">
+<section class="panel"><h2>Your storefronts</h2><div id="storesList" class="stores"><div class="empty">Loading your stores…</div></div></section>
+<section class="panel" id="createPanel"><h2>Create your free store</h2><p class="muted" style="font-size:14px;margin-top:-6px">Your first store is free. New stores are submitted for review before becoming public.</p>
+<form id="storeForm">
+<label for="storeName">Store name *</label><input id="storeName" name="name" maxlength="80" required placeholder="e.g. Tino Fashion">
+<label for="storeCategory">Category</label><select id="storeCategory" name="category"><option value="">Choose a category</option><option>Fashion & Clothing</option><option>Electronics</option><option>Home & Living</option><option>Beauty & Personal Care</option><option>Food & Groceries</option><option>Art & Crafts</option><option>Automotive</option><option>Other</option></select>
+<label for="storeDescription">Description</label><textarea id="storeDescription" name="description" maxlength="800" placeholder="What do you sell? What makes your store useful?"></textarea>
+<label for="countryCode">Country</label><select id="countryCode" name="country_code"><option value="ZW">Zimbabwe</option><option value="ZA">South Africa</option><option value="ZM">Zambia</option><option value="BW">Botswana</option><option value="MZ">Mozambique</option><option value="US">United States</option><option value="GB">United Kingdom</option><option value="OTHER">Other</option></select>
+<label for="currency">Store currency</label><select id="currency" name="currency"><option value="USD">USD — US Dollar</option><option value="ZAR">ZAR — South African Rand</option><option value="ZWL">ZWL — Zimbabwe Dollar</option></select>
+<div class="hint">Your store will start with Pending Review status. Choose a unique store name.</div>
+<div class="form-actions"><button class="primary" id="createBtn" type="submit">Create free store</button></div>
+</form></section>
+</div>
+<section class="panel" style="margin-top:18px"><h2>Upgrade your store</h2><div class="plans">
+<div class="plan"><h3>Starter <span class="pill">Free</span></h3><strong>$0</strong><p>One default store per account. Basic store profile and standard marketplace visibility. Product limits will be configured before listing tools launch.</p></div>
+<div class="plan"><h3>Growth</h3><strong>Coming soon · Price to be announced</strong><p>Higher listing allowance, enhanced store tools and sales insights.</p></div>
+<div class="plan"><h3>VIP</h3><strong>Coming soon · Price to be announced</strong><p>Eligibility for featured listings, advertising options, enhanced analytics and VIP benefits.</p></div>
+</div></section>
+</main>
+<footer>© <span id="year"></span> Market HARVA. Discover. Connect. Grow.</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="stores.js"></script>
+<script src="support-widget.js"></script>
 </body></html>
