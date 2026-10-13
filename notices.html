@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#edf4ff"><title>Notices | Market HARVA</title>
+<style>
+:root{--blue:#5f8fd6;--blue-dark:#386db8;--bg:#edf4ff;--text:#25354b;--muted:#718096;--silver:#cbd5e1;--white:#fff}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:"Trebuchet MS",Arial,sans-serif;color:var(--text);background:linear-gradient(135deg,#edf4ff,#e4edfa 55%,#f7faff)}
+header{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:18px clamp(16px,5vw,60px);border-bottom:1px solid #cbd5e1;background:#ffffffb8}
+.brand{font-weight:900;font-size:20px;color:var(--text);text-decoration:none}.brand span{color:var(--blue-dark)}
+a.btn{display:inline-block;text-decoration:none;background:linear-gradient(135deg,#edf4ff,#e2edfc);color:var(--blue-dark);border:1px solid #b9cde8;border-radius:11px;padding:11px 15px;font-weight:800}
+main{width:min(760px,92%);margin:8vh auto;background:#fff;border:1px solid #c9d5e4;border-radius:22px;padding:clamp(24px,5vw,44px);box-shadow:0 22px 65px #385b8b1f}
+.kicker{color:var(--blue-dark);font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase}h1{font-size:clamp(30px,5vw,44px);margin:12px 0}p{line-height:1.8;color:var(--muted)}.status{margin-top:25px;padding:15px;border:1px solid #d7e0eb;border-radius:12px;background:#f7faff;font-size:14px;line-height:1.7}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+</style></head><body><header><a class="brand" href="home.html">Market <span>HARVA</span></a><a class="btn" href="home.html">← Marketplace</a></header>
+<main><div class="kicker">Market HARVA</div><h1>Notices</h1><p>Important updates from Market HARVA.</p><div class="status"><strong>Development status</strong><br>Your notifications and announcements will appear here once notifications are connected.</div></main>
+<footer>© <span id="year"></span> Market HARVA. Discover. Connect. Grow.</footer><script>document.getElementById("year").textContent=new Date().getFullYear();</script></body></html>
