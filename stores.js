@@ -17,7 +17,7 @@
     host.querySelectorAll("[data-copy]").forEach(btn=>btn.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(btn.dataset.copy);notice("Store slug copied. Public store pages will be connected in a later step.","success");}catch{notice("Your store slug is: "+btn.dataset.copy);}}));
   }
   async function loadStores(){
-    const {data,error}=await client.from("stores").select("id,name,slug,description,category,status,created_at").eq("owner_id",currentUser.id).order("created_at",{ascending:false});
+    const {data,error}=await client.from("stores").select("id,name,slug,description,category,country_code,currency,status,created_at").eq("owner_id",currentUser.id).order("created_at",{ascending:false});
     if(error) throw error;
     stores=data||[]; renderStores();
     let activeProductCount=0;
@@ -28,9 +28,34 @@
     }
     $("listingUsage").textContent=activeProductCount+" active";
     const hasStore=stores.length>0;
-    $("createPanel").style.display=hasStore?"none":"block";
-    if(hasStore) notice("Your free store allowance is already in use. Additional store tiers will be enabled after plan and payment rules are implemented.","success");
-    else notice("You're signed in. Create your first free store below. It will be submitted for review.");
+    const panel=$("createPanel");
+    panel.style.display="block";
+    const heading=panel.querySelector("h2"), intro=panel.querySelector("p"), submit=$("createBtn");
+    const current=stores[0];
+    if(hasStore){
+      heading.textContent="Set up your store";
+      intro.textContent="Edit your store profile while it is pending review. These changes do not approve the store or make it public.";
+      $("storeName").value=current.name||"";
+      $("storeCategory").value=current.category||"";
+      $("storeDescription").value=current.description||"";
+      $("countryCode").value=current.country_code||"OTHER";
+      $("currency").value=String(current.currency||"USD").trim();
+      $("storeName").disabled=true;
+      submit.textContent="Save store setup";
+      if(!$("storeNameLock")) $("storeName").insertAdjacentHTML("afterend",'<div class="hint" id="storeNameLock">Store name cannot be changed here yet.</div>');
+      $("storeForm").dataset.mode="edit";
+      notice("Your store is saved. Complete or update its profile below while it is under review.","success");
+    }else{
+      heading.textContent="Create your free store";
+      intro.textContent="Your first store is free. New stores are submitted for review before becoming public.";
+      $("storeName").disabled=false;
+      $("storeNameLock")?.remove();
+      $("storeForm").reset();
+      $("countryCode").value="ZW"; $("currency").value="USD";
+      submit.textContent="Create free store";
+      $("storeForm").dataset.mode="create";
+      notice("You're signed in. Create your first free store below. It will be submitted for review.");
+    }
   }
   async function init(){
     $("year").textContent=new Date().getFullYear();
@@ -49,19 +74,28 @@
   }
   $("storeForm").addEventListener("submit",async event=>{
     event.preventDefault(); if(!client||!currentUser)return;
-    if(stores.length>=1){notice("Your free store allowance is already used. Paid store tiers are not active yet.","error");return;}
+    const editing=$("storeForm").dataset.mode==="edit" && stores.length>0;
     const name=$("storeName").value.trim(), slug=slugify(name);
-    if(!name||!slug){notice("Enter a store name containing letters or numbers.","error");return;}
-    $("createBtn").disabled=true; $("createBtn").textContent="Creating…";
+    if(!editing && (!name||!slug)){notice("Enter a store name containing letters or numbers.","error");return;}
+    $("createBtn").disabled=true; $("createBtn").textContent=editing?"Saving…":"Creating…";
     try{
-      const payload={owner_id:currentUser.id,name,slug,description:$("storeDescription").value.trim()||null,category:$("storeCategory").value||null,country_code:$("countryCode").value==="OTHER"?null:$("countryCode").value,currency:$("currency").value,status:"pending_review"};
-      const {error}=await client.from("stores").insert(payload);
-      if(error) throw error;
-      $("storeForm").reset(); $("countryCode").value="ZW"; $("currency").value="USD";
-      await loadStores();
-      notice("Store created and submitted for review. Market HARVA will review your account and verify the person or business behind the store. You can prepare your profile while review is pending; public selling is not yet approved.","success");
-    }catch(err){notice("Store wasn't created: "+(err.message||"Unknown error")+". If the name is already taken, try another name.","error");}
-    finally{$("createBtn").disabled=false;$("createBtn").textContent="Create free store";}
+      if(editing){
+        const current=stores[0];
+        const payload={description:$("storeDescription").value.trim()||null,category:$("storeCategory").value||null,country_code:$("countryCode").value==="OTHER"?null:$("countryCode").value,currency:$("currency").value};
+        const {error}=await client.from("stores").update(payload).eq("id",current.id).eq("owner_id",currentUser.id);
+        if(error) throw error;
+        await loadStores();
+        notice("Store setup saved. Its review status is unchanged; public selling remains unavailable until approval.","success");
+      }else{
+        const payload={owner_id:currentUser.id,name,slug,description:$("storeDescription").value.trim()||null,category:$("storeCategory").value||null,country_code:$("countryCode").value==="OTHER"?null:$("countryCode").value,currency:$("currency").value,status:"pending_review"};
+        const {error}=await client.from("stores").insert(payload);
+        if(error) throw error;
+        $("storeForm").reset(); $("countryCode").value="ZW"; $("currency").value="USD";
+        await loadStores();
+        notice("Store created and submitted for review. Market HARVA will review your account and verify the person or business behind the store. You can prepare your profile while review is pending; public selling is not yet approved.","success");
+      }
+    }catch(err){notice((editing?"Store setup wasn't saved: ":"Store wasn't created: ")+(err.message||"Unknown error")+". Please review the fields and try again.","error");}
+    finally{$("createBtn").disabled=false;$("createBtn").textContent=$("storeForm").dataset.mode==="edit"?"Save store setup":"Create free store";}
   });
   $("refreshBtn").addEventListener("click",async()=>{if(!client||!currentUser)return;try{await loadStores();}catch(err){notice("Refresh failed: "+err.message,"error");}});
   init();
