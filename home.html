@@ -41,6 +41,24 @@
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--silver);
     }
+    .menu-toggle { width: 42px; height: 42px; border: 1px solid var(--silver); border-radius: 12px; background: #fff; color: var(--blue-dark); font-size: 22px; flex: 0 0 auto; }
+    .menu-toggle:hover { background: var(--pale); }
+    .drawer-backdrop { position: fixed; inset: 0; z-index: 40; background: #10233d70; opacity: 0; visibility: hidden; transition: .2s; }
+    .drawer-backdrop.open { opacity: 1; visibility: visible; }
+    .menu-drawer { position: fixed; z-index: 41; inset: 0 auto 0 0; width: min(340px, 88vw); padding: 20px; display: flex; flex-direction: column; gap: 8px; background: var(--surface); border-right: 1px solid var(--silver); box-shadow: 15px 0 45px #142d4a20; transform: translateX(-105%); transition: transform .24s ease; overflow-y: auto; }
+    .menu-drawer.open { transform: translateX(0); }
+    .drawer-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+    .drawer-title { font-size: 18px; font-weight: 900; }
+    .drawer-close { border: 1px solid var(--silver); background: transparent; border-radius: 10px; width: 38px; height: 38px; font-size: 22px; }
+    .drawer-link { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 12px 13px; border: 1px solid transparent; border-radius: 11px; background: transparent; color: var(--text); font-size: 14px; font-weight: 700; }
+    .drawer-link:hover { background: var(--pale); border-color: var(--line); color: var(--blue-dark); }
+    .drawer-icon { width: 23px; text-align: center; font-size: 17px; }
+    .drawer-section { margin: 12px 0 4px; padding: 12px 10px 4px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+    .drawer-spacer { flex: 1; min-height: 18px; }
+    .drawer-signout { border-color: #f0d0d0; color: #a12c36; }
+    .dark .menu-drawer { background: #1c2a3e; border-color: #41516a; }
+    .dark .menu-toggle, .dark .drawer-close { background: #263a55; color: #e5edf9; border-color: #536983; }
+    .dark .drawer-link:hover { background: #263a55; color: #d8e8ff; }
     .brand {
       display: flex;
       align-items: center;
@@ -424,6 +442,7 @@
 </head>
 <body>
   <header class="topbar">
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation menu" aria-expanded="false">☰</button>
     <a class="brand" href="home.html" aria-label="Market HARVA home">
       <div class="logo">H</div>
       <div>Market <span>HARVA</span></div>
@@ -445,6 +464,26 @@
       <button class="outline-btn" id="themeBtn" type="button" aria-label="Toggle dark mode">☾</button>
     </div>
   </header>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="menu-drawer" id="menuDrawer" aria-label="Market HARVA navigation" aria-hidden="true">
+    <div class="drawer-head"><div class="drawer-title">Market <span style="color:var(--blue)">HARVA</span></div><button class="drawer-close" id="drawerClose" type="button" aria-label="Close menu">×</button></div>
+    <a class="drawer-link" href="home.html"><span class="drawer-icon">⌂</span>Marketplace</a>
+    <button class="drawer-link" type="button" data-menu-future="Official Catalog"><span class="drawer-icon">✓</span>Official Catalog</button>
+    <button class="drawer-link" type="button" data-menu-future="My Stores"><span class="drawer-icon">▣</span>My Stores</button>
+    <button class="drawer-link" type="button" data-menu-future="My Orders"><span class="drawer-icon">🛒</span>My Orders</button>
+    <button class="drawer-link" type="button" data-menu-future="My Targets"><span class="drawer-icon">◎</span>My Targets</button>
+    <button class="drawer-link" type="button" data-menu-future="Withdrawals"><span class="drawer-icon">↗</span>Withdrawals</button>
+    <button class="drawer-link" type="button" data-menu-future="Notices"><span class="drawer-icon">♧</span>Notices</button>
+    <button class="drawer-link" type="button" data-menu-future="My Account"><span class="drawer-icon">♙</span>My Account</button>
+    <div class="drawer-section">Information</div>
+    <button class="drawer-link" type="button" data-menu-future="About Us"><span class="drawer-icon">ⓘ</span>About Us</button>
+    <button class="drawer-link" type="button" data-menu-future="Contact Us"><span class="drawer-icon">✉</span>Contact Us</button>
+    <button class="drawer-link" type="button" data-menu-future="Privacy Policy"><span class="drawer-icon">▤</span>Privacy Policy</button>
+    <button class="drawer-link" type="button" data-menu-future="Terms and Conditions"><span class="drawer-icon">§</span>Terms and Conditions</button>
+    <div class="drawer-spacer"></div>
+    <button class="drawer-link drawer-signout" id="signOutBtn" type="button"><span class="drawer-icon">⇥</span>Sign out</button>
+  </aside>
 
   <main class="container">
     <section class="hero">
@@ -739,6 +778,32 @@
         item.classList.toggle("selected", item.dataset.category === "All"));
       filterProducts();
     });
+    const drawer = $("menuDrawer");
+    const backdrop = $("drawerBackdrop");
+    function setDrawer(open) {
+      drawer.classList.toggle("open", open);
+      backdrop.classList.toggle("open", open);
+      drawer.setAttribute("aria-hidden", String(!open));
+      $("menuToggle").setAttribute("aria-expanded", String(open));
+      document.body.style.overflow = open ? "hidden" : "";
+    }
+    $("menuToggle").addEventListener("click", () => setDrawer(true));
+    $("drawerClose").addEventListener("click", () => setDrawer(false));
+    backdrop.addEventListener("click", () => setDrawer(false));
+    document.addEventListener("keydown", event => { if (event.key === "Escape") setDrawer(false); });
+    document.querySelectorAll("[data-menu-future]").forEach(button => button.addEventListener("click", () => {
+      setDrawer(false);
+      toast(button.dataset.menuFuture + " will be available in a later development step.");
+    }));
+    $("signOutBtn").addEventListener("click", async () => {
+      setDrawer(false);
+      if (!supabaseClient) supabaseClient = window.supabase?.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+      if (!supabaseClient) { toast("Authentication is not connected yet."); return; }
+      const { error } = await supabaseClient.auth.signOut();
+      if (error) { toast("Could not sign out: " + error.message); return; }
+      window.location.href = "index.html";
+    });
+
     $("themeBtn").addEventListener("click", () => {
       document.body.classList.toggle("dark");
       $("themeBtn").textContent = document.body.classList.contains("dark") ? "☀" : "☾";
