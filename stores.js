@@ -13,7 +13,7 @@
     $("allowance").textContent=stores.length ? "Used" : "1 store";
     const host=$("storesList");
     if(!stores.length){host.innerHTML='<div class="empty">You have not created a store yet. Use the form to create your free store.</div>';return;}
-    host.innerHTML=stores.map(s=>`<article class="store-card"><div class="store-head"><div><h3>${escapeHtml(s.name)}</h3><p>${escapeHtml(s.description||"No description added yet.")}</p></div><span class="pill">${escapeHtml(statusLabel(s.status))}</span></div><div class="hint">Category: ${escapeHtml(s.category||"Not set")} · Created ${s.created_at?new Date(s.created_at).toLocaleDateString():"date unavailable"}</div><div class="form-actions"><button type="button" data-copy="${escapeHtml(s.slug||"")}">Copy store slug</button></div></article>`).join("");
+    host.innerHTML=stores.map(s=>`<article class="store-card"><div class="store-head"><div><h3>${escapeHtml(s.name)}</h3><p>${escapeHtml(s.description||"No description added yet.")}</p></div><span class="pill">${escapeHtml(statusLabel(s.status))}</span></div><div class="hint">Category: ${escapeHtml(s.category||"Not set")} · Created ${s.created_at?new Date(s.created_at).toLocaleDateString():"date unavailable"}</div>${s.status==="pending_review"?'<div class="message">Under review: Market HARVA will review your account and verify your identity or business details. You can prepare your profile while this review is pending. Public selling remains unavailable until approval.</div>':''}<div class="form-actions"><button type="button" data-copy="${escapeHtml(s.slug||"")}">Copy store slug</button></div></article>`).join("");
     host.querySelectorAll("[data-copy]").forEach(btn=>btn.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(btn.dataset.copy);notice("Store slug copied. Public store pages will be connected in a later step.","success");}catch{notice("Your store slug is: "+btn.dataset.copy);}}));
   }
   async function loadStores(){
@@ -40,6 +40,11 @@
     if(error){notice("Unable to check your sign-in session: "+error.message,"error");return;}
     if(!session){notice("Please sign in to manage your stores. Redirecting to the sign-in page…");setTimeout(()=>{location.href="index.html";},1200);return;}
     currentUser=session.user;
+    if(!currentUser.email_confirmed_at){
+      notice("Please confirm your email address before creating a free store. Open the confirmation email from Market HARVA, then sign in again.","error");
+      $("storeForm").querySelectorAll("input,textarea,select,button").forEach(el=>el.disabled=true);
+      return;
+    }
     try{await loadStores();}catch(err){notice("Couldn't load your stores: "+(err.message||"Unknown error")+". Check your Supabase policies and table access.","error");}
   }
   $("storeForm").addEventListener("submit",async event=>{
@@ -54,7 +59,7 @@
       if(error) throw error;
       $("storeForm").reset(); $("countryCode").value="ZW"; $("currency").value="USD";
       await loadStores();
-      notice("Store created and submitted for review. You can prepare its profile while approval is pending.","success");
+      notice("Store created and submitted for review. Market HARVA will review your account and verify the person or business behind the store. You can prepare your profile while review is pending; public selling is not yet approved.","success");
     }catch(err){notice("Store wasn't created: "+(err.message||"Unknown error")+". If the name is already taken, try another name.","error");}
     finally{$("createBtn").disabled=false;$("createBtn").textContent="Create free store";}
   });
